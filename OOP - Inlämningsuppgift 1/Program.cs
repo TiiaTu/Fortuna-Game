@@ -8,9 +8,10 @@ namespace OOP___Inlämningsuppgift_1
         {
             //skapa variablerna
             int saldo = 500;
-            int satsning=0;
-            int lyckoTal=0;
-            bool spelarSpelet = true;         
+            int satsning = 0;
+            int lyckoTal = 0;
+            bool spelarSpelet = true;
+            bool negativ = satsning < 0;
 
             Random rnd = new Random();
             int tärningA = rnd.Next(0, 7);
@@ -21,44 +22,59 @@ namespace OOP___Inlämningsuppgift_1
 
             while (spelarSpelet)
             {
-                while (satsning == 0)
+                Console.Write("Hur mycket vågar du satsa? ");
+                string inputSats = Console.ReadLine();
+                int.TryParse(inputSats, out satsning);
+
+                if (negativ)
                 {
-                    Console.Write("Hur mycket vågar du satsa? ");
-                string inputSatsning = Console.ReadLine();
-
-                bool satsningOk = int.TryParse(inputSatsning, out satsning);
-
-                Console.Write("Ange ditt lyckotal (1-6): ");
-                string inputLyckotal = Console.ReadLine();
-
-                bool lyckotalOk = int.TryParse(inputLyckotal, out int lyckoTal);
-
-                bool rättA = satsning == tärningA;
-                bool rättB = satsning == tärningB;
-                bool rättC = satsning == tärningC;
-
-                if (rättA || rättB || rättC)
+                    Console.WriteLine("Du angav ett felaktigt värde, försök igen!");
+                }
+                else
                 {
-                    if (rättA && rättB && rättC)
-                    {
-                        Console.WriteLine();
-                    }
-                    if (lyckoTal < 1 || lyckoTal > 6)
-                    {
-                        Console.WriteLine("Hoppsan! Du angav ett felaktigt värde");
-                    }
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine($"Tärning A: {tärningA} ");
-                        Console.WriteLine($"Tärning B: {tärningB} ");
-                        Console.WriteLine($"Tärning C: {tärningC} ");
-                    }
+                    continue;
+                }
+                
+                
+                else if (lyckoTal == 0)
+                {
+                    Console.Write("Ange ditt lyckotal (1-6): ");
+                    string inputLyckotal = Console.ReadLine();
 
-
+                    bool lyckotalOk = int.TryParse(inputLyckotal, out lyckoTal);
 
                 }
+            
+            }
 
+            bool rättA = satsning == tärningA;
+            bool rättB = satsning == tärningB;
+            bool rättC = satsning == tärningC;
+
+            if (rättA || rättB || rättC)
+            {
+                if (rättA && rättB && rättC)
+                {
+                    Console.WriteLine();
+                }
+                if (lyckoTal < 1 || lyckoTal > 6)
+                {
+                    Console.WriteLine("Hoppsan! Du angav ett felaktigt värde");
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Tärning A: {tärningA} ");
+                    Console.WriteLine($"Tärning B: {tärningB} ");
+                    Console.WriteLine($"Tärning C: {tärningC} ");
+                }
+
+
+
+            }
+            else
+            {
+                Console.WriteLine("");
 
 
 
@@ -66,10 +82,7 @@ namespace OOP___Inlämningsuppgift_1
 
 
                 //bearbeta data
-                if (satsning == 0)
-                {
-                    Console.WriteLine("Det var inget nummer det, försök igen!");
-                }
+
 
 
 
@@ -82,4 +95,6 @@ namespace OOP___Inlämningsuppgift_1
         }
     }
 }
+
+
 
