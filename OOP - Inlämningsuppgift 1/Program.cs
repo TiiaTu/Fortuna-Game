@@ -14,7 +14,7 @@ namespace OOP___Inlämningsuppgift_1
 
             Random rnd = new Random();
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------");
             Console.WriteLine("Välkommen till att spela Fortuna!");
             Console.WriteLine("---------------------------------");
@@ -22,9 +22,9 @@ namespace OOP___Inlämningsuppgift_1
             Console.ForegroundColor = ConsoleColor.Cyan;
             VisaSaldo(saldo);
 
-            while (saldo > 50)
+            while (saldo >= 50)
             {
-                Meddelande("Välj ditt lyckotal (1-6): ");
+                Meddelande("Välj ett lyckotal (1-6): ");
                 string inputLyckotal = Console.ReadLine();
                 bool lyckotalSiffra = int.TryParse(inputLyckotal, out lyckoTal);
 
@@ -48,7 +48,7 @@ namespace OOP___Inlämningsuppgift_1
                 while (true)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Meddelande("Hur mycket vågar du satsa? ");
+                    Meddelande("Hur mycket vågar du satsa? (min 50 pix) ");
                     string inputSats = Console.ReadLine();
                     bool satsningSiffra = int.TryParse(inputSats, out satsning);
 
@@ -73,7 +73,7 @@ namespace OOP___Inlämningsuppgift_1
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Cyan;
 
-                            Console.WriteLine("Nu kör vi! Lycka till!!");
+                            Console.WriteLine("NU KÖR VI! LYCKA TILL!!");
                             Console.WriteLine("________________________");
 
                             SekundRäknaren();
@@ -110,13 +110,13 @@ namespace OOP___Inlämningsuppgift_1
                         {
                             saldo += satsning * 4;
                             Console.BackgroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("!!JACKPOT!!");
+                            Console.WriteLine("!!JACKPOT!! Alla tre rätt!");
                             Console.WriteLine($"Du vann {satsning * 4} pix!");
                         }
                         else if (förstRätt && andraRätt || förstRätt && tredjeRätt || andraRätt && tredjeRätt)
                         {
                             saldo += satsning * 3;
-                            Console.WriteLine($"Wow! Två rätt! Du vann {satsning * 3} pix!");
+                            Console.WriteLine($"Wow! TVÅ rätt! Du vann {satsning * 3} pix!");
                         }
                         else
                         {
@@ -131,45 +131,55 @@ namespace OOP___Inlämningsuppgift_1
                 }
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"Ditt saldo är {saldo} pix");
-                //När användaren vinner, blir bakgroundcolor grönt
+                VisaSaldo(saldo);
 
-                if (saldo > 50)
+                if (saldo >= 50)
                 {
-                    Meddelande("Sugen på en ny runda? (ja/nej) ");
+                    Meddelande("Sugen på en runda till? (ja/nej) ");
                     string spelaIgen = Console.ReadLine().ToLower();
 
                     if (spelaIgen == "ja")
                     {
                         Console.Clear();
-                        continue;
+                        //break;
                     }
-                    if (spelaIgen == "nej")
+                    else if (spelaIgen == "nej")
                     {
+                        TackFörSpelet();
                         break;
                     }
                     else
                     {
-                        Meddelande("Skriv 'ja' eller 'nej' :");
-                        spelaIgen = Console.ReadLine().ToLower();
                         continue;
                     }
                 }
+
                 if (saldo < 50)
                 {
-                    Console.WriteLine("_____________");
-                    Console.WriteLine("GAME OVER");
-                    Console.WriteLine("_____________");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("_______________________________");
+                    Console.WriteLine("---------GAME OVER------------");
+                    Console.WriteLine("-----du har för lite pix------");
+                    Console.WriteLine("_______________________________");
+                    
+                    TackFörSpelet();
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 }
-                Console.Clear();
+
                 VisaSaldo(saldo);
             }
         }
 
+        private static void TackFörSpelet()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Tack för att du spelade!");
+        }
+
         private static void VisaSaldo(int saldo)
         {
-            Console.WriteLine($"Du har {saldo} pix");
+            Console.WriteLine($"Ditt saldo är {saldo} pix");
         }
 
         private static void SekundRäknaren()
