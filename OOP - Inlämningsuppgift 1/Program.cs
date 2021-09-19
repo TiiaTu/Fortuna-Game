@@ -7,12 +7,13 @@ namespace OOP___Inlämningsuppgift_1
     {
         static void Main(string[] args)
         {
-            //skapa variablerna
+            //variablerna
             int saldo = 500;
-            int satsning = 0;
+            int insats = 0;
             int lyckoTal = 0;
 
             Random rnd = new Random();
+            int[] tärning = new int[3]; //skapa en array för en tärning som man senare loopar 3 gånger
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------");
@@ -22,8 +23,10 @@ namespace OOP___Inlämningsuppgift_1
             Console.ForegroundColor = ConsoleColor.Cyan;
             VisaSaldo(saldo);
 
-            while (saldo >= 50)
-            {
+            //___________________________________________________________________________________________
+
+            while (saldo >= 50) //så länge användaren har minst 50 pix, körs spelet
+            {               
                 Meddelande("Välj ett lyckotal (1-6): ");
                 string inputLyckotal = Console.ReadLine();
                 bool lyckotalSiffra = int.TryParse(inputLyckotal, out lyckoTal);
@@ -45,22 +48,24 @@ namespace OOP___Inlämningsuppgift_1
                     Console.WriteLine($"Lyckotalet: {lyckoTal}");
                 }
 
-                while (true)
+                //___________________________________________________________________________________________
+
+                
+                while (true) //skapa en while loop där användaren anger insatsen
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Meddelande("Hur mycket vågar du satsa? (min 50 pix) ");
                     string inputSats = Console.ReadLine();
-                    bool satsningSiffra = int.TryParse(inputSats, out satsning);
+                    bool insatsSiffra = int.TryParse(inputSats, out insats);
 
-                    if (satsningSiffra)
+                    if (insatsSiffra) //kontrollera att insatsen som matas in är en siffra
                     {
-
-                        if (satsning < 50)
+                        if (insats < 50)
                         {
                             Meddelande("Kom igen! Lite mer vågar du väl satsa? ;)");
                             continue;
                         }
-                        else if (satsning > saldo)
+                        else if (insats > saldo)
                         {
                             Meddelande("Du har för lite pix! Satsa mindre!");
                             continue;
@@ -68,7 +73,7 @@ namespace OOP___Inlämningsuppgift_1
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"Du har satsat {satsning} pix");
+                            Console.WriteLine($"Du har satsat {insats} pix");
                             Thread.Sleep(500);
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -87,20 +92,24 @@ namespace OOP___Inlämningsuppgift_1
                     }
                 }
 
-                int[] tärning = new int[3];
-                for (int i = 0; i < 3; i++)
+                //___________________________________________________________________________________________
+                
+                for (int i = 0; i < 3; i++) //loopen för tärningen som kastas 3 gånger
                 {
                     tärning[i] = rnd.Next(1, 7);
                     Console.WriteLine(tärning[i]);
                     Thread.Sleep(250);
                 }
-                saldo -= satsning;
-
+                 
                 bool förstRätt = tärning[0] == lyckoTal;
                 bool andraRätt = tärning[1] == lyckoTal;
                 bool tredjeRätt = tärning[2] == lyckoTal;
 
-                for (int i = 0; i < 1; i++) //Visar ifall man har 1 rätt, 2 rätt eller 3 rätt
+                saldo -= insats; //innan resultatet kontrolleras, dras insatsen från saldot
+
+                //___________________________________________________________________________________________
+
+                for (int i = 0; i < 1; i++) //kontrollera ifall användaren har 1, 2 eller 3 rätta
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
 
@@ -108,20 +117,20 @@ namespace OOP___Inlämningsuppgift_1
                     {
                         if (förstRätt && andraRätt && tredjeRätt)
                         {
-                            saldo += satsning * 4;
+                            saldo += insats * 4;
                             Console.BackgroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("!!JACKPOT!! Alla tre rätt!");
-                            Console.WriteLine($"Du vann {satsning * 4} pix!");
+                            Console.WriteLine($"Du vann {insats * 4} pix!");
                         }
                         else if (förstRätt && andraRätt || förstRätt && tredjeRätt || andraRätt && tredjeRätt)
                         {
-                            saldo += satsning * 3;
-                            Console.WriteLine($"Wow! TVÅ rätt! Du vann {satsning * 3} pix!");
+                            saldo += insats * 3;
+                            Console.WriteLine($"Wow! TVÅ rätt! Du vann {insats * 3} pix!");
                         }
                         else
                         {
-                            saldo += satsning * 2;
-                            Console.WriteLine($"Wow! Ett rätt! Du vann {satsning * 2} pix!");
+                            saldo += insats * 2;
+                            Console.WriteLine($"Wow! Ett rätt! Du vann {insats * 2} pix!");
                         }
                     }
                     else
@@ -129,11 +138,12 @@ namespace OOP___Inlämningsuppgift_1
                         Console.WriteLine($"Åh nej! Ingen vinst!");
                     }
                 }
+                //___________________________________________________________________________________________
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 VisaSaldo(saldo);
 
-                if (saldo >= 50)
+                if (saldo >= 50) //en möjlighet att fortsätta spelet, så länge användaren har 50 pix eller mer 
                 {
                     Meddelande("Sugen på en runda till? (ja/nej) ");
                     string spelaIgen = Console.ReadLine().ToLower();
@@ -141,7 +151,7 @@ namespace OOP___Inlämningsuppgift_1
                     if (spelaIgen == "ja")
                     {
                         Console.Clear();
-                        //break;
+                        continue;
                     }
                     else if (spelaIgen == "nej")
                     {
@@ -150,22 +160,26 @@ namespace OOP___Inlämningsuppgift_1
                     }
                     else
                     {
-                        continue;
+                        Console.WriteLine("Svara 'ja' eller 'nej'");
+                        spelaIgen = Console.ReadLine().ToLower();
+                        Console.Clear();
                     }
                 }
+                //___________________________________________________________________________________________
 
-                if (saldo < 50)
+                if (saldo < 50) //spelet avslutas när användaren har för lite pix
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("_______________________________");
                     Console.WriteLine("---------GAME OVER------------");
                     Console.WriteLine("-----du har för lite pix------");
                     Console.WriteLine("_______________________________");
-                    
+
                     TackFörSpelet();
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                 }
+                //___________________________________________________________________________________________
 
                 VisaSaldo(saldo);
             }
