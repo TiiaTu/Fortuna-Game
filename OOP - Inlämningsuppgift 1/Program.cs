@@ -14,12 +14,12 @@ namespace OOP___Inlämningsuppgift_1
 
             Random rnd = new Random();
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("---------------------------------");
             Console.WriteLine("Välkommen till att spela Fortuna!");
             Console.WriteLine("---------------------------------");
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"Du har {saldo} pix");
 
             while (saldo > 50)
@@ -28,107 +28,188 @@ namespace OOP___Inlämningsuppgift_1
                 string inputLyckotal = Console.ReadLine();
                 bool lyckotalSiffra = int.TryParse(inputLyckotal, out lyckoTal);
 
-                Meddelande("Hur mycket vågar du satsa? ");
-                string inputSats = Console.ReadLine();
-                bool satsningSiffra = int.TryParse(inputSats, out satsning);
-
-                if (lyckotalSiffra)
-                {
-                    if (lyckoTal < 1 || lyckoTal > 6)
-                    {
-                        Console.WriteLine("Du angav ett felaktigt lyckotal!");
-                        continue;
-                    }
-                    else
-                    {
-                        Meddelande($"Du har valt: {lyckoTal}");
-                        Thread.Sleep(500);
-
-                        Console.WriteLine();
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-
-                        Meddelande("Nu kör vi! Lycka till!!");
-                        Console.WriteLine();
-
-                        SekundRäknaren();
-                        Console.WriteLine();
-                        break;
-                    }
-                }
-                else
+                if (!lyckotalSiffra)
                 {
                     Console.WriteLine("Hoppsan.. Ange en siffra!");
                     continue;
                 }
 
-
-                if (!satsningSiffra)
+                if (lyckoTal < 1 || lyckoTal > 6)
                 {
-                    Meddelande("Hoppsan.. Ange en siffra!");
-                    continue;
-                }
-                if (satsning < 50)
-                {
-                    Meddelande("Kom igen! Lite mer vågar du väl satsa? ;)");
-                    continue;
-                }
-                else if (satsning > saldo)
-                {
-                    Meddelande("Du har för lite pix! Satsa mindre!");
+                    Console.WriteLine("Du angav ett felaktigt lyckotal!");
                     continue;
                 }
                 else
                 {
-                    Meddelande("Sådär, nu kör vi... Lycka till!");
-                    break;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Lyckotalet: {lyckoTal}");
                 }
 
-            }
-
-            int[] tärning = new int[3];
-            for (int i = 0; i < 3; i++)
-            {
-                tärning[i] = rnd.Next(0, 7);
-                Console.WriteLine(tärning[i]);
-            }
-
-            Console.WriteLine($"Ditt saldo är {saldo}");
-            //När användaren vinner, blir bakgroundcolor grönt
-
-            if (saldo > 50)
-            {
-                Console.Write("Sugen på en ny runda? (ja/nej) ");
-                string spelaIgen = Console.ReadLine().ToLower();
-
-                if (spelaIgen == "ja")
+                while (true)
                 {
-                    Console.Clear();
-                    continue;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Meddelande("Hur mycket vågar du satsa? ");
+                    string inputSats = Console.ReadLine();
+                    bool satsningSiffra = int.TryParse(inputSats, out satsning);
+
+                    if (satsningSiffra)
+                    {
+
+                        if (satsning < 50)
+                        {
+                            Meddelande("Kom igen! Lite mer vågar du väl satsa? ;)");
+                            continue;
+                        }
+                        else if (satsning > saldo)
+                        {
+                            Meddelande("Du har för lite pix! Satsa mindre!");
+                            continue;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"Du har satsat {satsning} pix");
+                            Thread.Sleep(500);
+                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+
+                            Console.WriteLine("Nu kör vi! Lycka till!!");
+                            Console.WriteLine("************************");
+                            Console.WriteLine();
+
+                            SekundRäknaren();
+                            Console.WriteLine();
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Meddelande("Hoppsan.. Ange en siffra!");
+                        break;
+                    }
                 }
-                else if (spelaIgen == "nej")
+
+
+
+                //if (!satsningSiffra)
+                //{
+
+
+                //}
+                //else
+                //{
+                //    if (satsning < 50)
+                //    {
+                //        Meddelande("Kom igen! Lite mer vågar du väl satsa? ;)");
+                //        break;
+                //    }
+                //    else if (satsning > saldo)
+                //    {
+                //        Meddelande("Du har för lite pix! Satsa mindre!");
+                //        continue;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine($"Du har satsat {satsning} pix");
+                //        Thread.Sleep(500);
+                //        Console.WriteLine();
+                //        Console.ForegroundColor = ConsoleColor.Magenta;
+
+                //        Console.WriteLine("Nu kör vi! Lycka till!!");
+                //        Console.WriteLine("************************");
+                //        Console.WriteLine();
+
+                //        SekundRäknaren();
+                //        Console.WriteLine();
+                //        break;
+                //    }
+
+                //}
+
+
+
+
+
+
+                //        Meddelande("Hoppsan.. Ange en siffra!");
+                //    continue;
+                //}
+                //if (satsning < 50)
+                //{
+                //    Meddelande("Kom igen! Lite mer vågar du väl satsa? ;)");
+                //    continue;
+                //}
+                //else if (satsning > saldo)
+                //{
+                //    Meddelande("Du har för lite pix! Satsa mindre!");
+                //    continue;
+                //}
+                //else
+                //{
+                //    Console.WriteLine($"Du har satsat {satsning} pix");
+                //    Thread.Sleep(500);
+                //    Console.WriteLine();
+                //    Console.ForegroundColor = ConsoleColor.Magenta;
+
+                //    Console.WriteLine("Nu kör vi! Lycka till!!");
+                //    Console.WriteLine("************************");
+                //    Console.WriteLine();
+
+                //    SekundRäknaren();
+                //    Console.WriteLine();
+                //    break;
+                //}
+
+
+                int[] tärning = new int[3];
+                for (int i = 0; i < 3; i++)
                 {
-                    break;
+                    tärning[i] = rnd.Next(1, 7);
+                    Console.WriteLine(tärning[i]);
+                    Thread.Sleep(250);
                 }
-                else
+
+                //if-satserna
+
+
+                Console.WriteLine($"Ditt saldo är {saldo} pix");
+                //När användaren vinner, blir bakgroundcolor grönt
+
+                if (saldo > 50)
                 {
-                    Meddelande("Skriv _ja_ eller _nej_");
-                    continue;
+                    Console.Write("Sugen på en ny runda? (ja/nej) ");
+                    string spelaIgen = Console.ReadLine().ToLower();
+
+                    if (spelaIgen == "ja")
+                    {
+                        Console.Clear();
+                        continue;
+
+                    }
+                    if (spelaIgen == "nej")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Meddelande("Skriv _ja_ eller _nej_");
+                        continue;
+                    }
+
                 }
 
             }
-            else
-            {
-                Console.WriteLine("Game over");
-            }
+
+
         }
 
         private static void SekundRäknaren()
         {
-            Console.WriteLine("ready..");
+            Console.Write("Ready..");
             Thread.Sleep(1000);
-            Console.WriteLine("set..");
+            Console.Write(".set..");
             Thread.Sleep(1000);
-            Console.WriteLine("GO!!");
+            Console.Write(".GO!!");
             Thread.Sleep(1000);
         }
 
@@ -139,28 +220,6 @@ namespace OOP___Inlämningsuppgift_1
         }
 
 
-
-
-
-        //        if ()
-        //        {
-        //            Console.Write("Hur mycket vågar du satsa? ");
-        //            string inputSats = Console.ReadLine();
-        //            bool satsningOk = int.TryParse(inputSats, out satsning);
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Du angav ett felaktigt värde, försök igen!");
-        //        }
-
-
-        //        if (lyckoTal == 0)
-        //        {
-        //           
-
-        //        }
-
-        //    }
 
         //    bool rättA = satsning == tärningA;
         //    bool rättB = satsning == tärningB;
